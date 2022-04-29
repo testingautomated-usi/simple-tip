@@ -8,13 +8,13 @@ Test Prioritization and Active Learning** by M.Weiss and P.Tonella, published at
 #### Dependencies
 On your machine, you'll need the following requirements:
 - Docker
-- The uncompressed assets folder, further referred to as `/path/to/assets/` (available on Zenodo).
+- The uncompressed assets folder, further referred to as `/path/to/assets/` (available on Zenodo, [link](https://zenodo.org/record/6504907)).
   *Note:* Due to the large size of our study, this achive is large: 
   Uncompressing it will take a long time and 8.3 GB of disk space.
 
 #### Step 1: Running the container
 Start the container with the following command (replacing `/path/to/assets/` with the path to the assets folder):
-> docker run -it --rm -v /expext2/deepgini/:/assets ghcr.io/testingautomated-usi/issta2022:latest
+> docker run -it --rm -v /path/to/assets/:/assets ghcr.io/testingautomated-usi/simple-tip:latest
 
 This will download and interactively run the docker image.
 
