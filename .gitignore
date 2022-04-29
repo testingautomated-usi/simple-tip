@@ -1,3 +1,8 @@
+# Copyright Reasons, must be generated on the fly
+datasets/cifar10_*
+
+.idea/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -127,3 +132,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+/src/dnn_test_prio/tmp

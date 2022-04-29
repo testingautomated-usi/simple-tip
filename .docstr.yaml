@@ -1,0 +1,14 @@
+# Verify the documentation coverage of this project by
+#      `pip install docstr-coverage==2.2.0`
+#      and then running `docstr-coverage` in the root of this repo.
+
+paths:
+  - src
+verbose: 3 # int (0-3)
+skip_magic: True
+skip_file_doc: False
+skip_init: True
+skip_class_def: False
+skip_private: True
+follow_links: True
+percentage_only: False

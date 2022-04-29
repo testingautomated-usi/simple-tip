@@ -1,0 +1,26 @@
+tensorflow==2.6.1
+uncertainty-wizard==0.2.0
+
+pytest==6.2.5
+
+welford==0.2.5
+# sqlmodel==0.0.4
+tensorflow_datasets==4.4.0
+
+scikit-learn==1.0.1
+scipy==1.4.1
+
+# Required in surprise implementation for available memory estimation
+psutil==5.8.0
+# Required to load imdb dataset
+datasets==1.16.1
+# Required for plotting
+matplotlib==3.5.1
+seaborn==0.11.2
+# Some statistics
+pingouin==0.5.0
+
+
+polyleven==0.7 # Fast levenshtein distance implementation
+
+typer==0.3.2
