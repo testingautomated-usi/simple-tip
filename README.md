@@ -120,7 +120,7 @@ Contains the modules which we expect to be widely useful in 3rd party studies, m
 - `./src/plotters/`
 Contains the logic to create the final results (tables, plots, etc.) from the raw intermediate results persisted when running the experiments. For example, the logic to average the results over all 100 re-runs, or the logic to compute the heatmap of effect size and p-values (Fig. 3 in the paper) can be found in this package.
 - `./Dockerfile` and `./requirements.txt`
-Specification of the software infrastructure we used to run the experiments. Building docker image specified in the docker file (`docker build -t issta_dnn_test_prio .`) will create the same docker image as the one we used to run the experiments.
+Specification of the software infrastructure we used to run the experiments. Building docker image specified in the docker file will create the same docker image as the one we used to run the experiments.
 - `./reproduction.py`
 A CLI which allows to easily re-run parts of our experiements (described above).
 
