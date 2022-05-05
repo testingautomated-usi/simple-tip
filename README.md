@@ -8,7 +8,7 @@ Test Prioritization and Active Learning** by M.Weiss and P.Tonella, published at
 ### Dependencies
 On your machine, you'll need the following requirements:
 - Docker
-- Download the `assets.zip` folder from Zenodo ([link](https://zenodo.org/record/6504907)) and uncompress it. 
+- Download the `assets.zip` folder from Zenodo ([link](https://doi.org/10.5281/zenodo.6504906)) and uncompress it. 
   For the remainder of this README, we will refer with `/path/to/assets/` as the path to your assets folder.
   *Note:* Due to the large size of our study, this achive is large: 
   Uncompressing it will take a while, and requires 8.3 GB of disk space. On windows, uncompressing is much faster when using [7zip](https://www.7-zip.org/download.html).
