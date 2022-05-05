@@ -5,14 +5,16 @@ Test Prioritization and Active Learning** by M.Weiss and P.Tonella, published at
 
 ## Getting Started: Running the Reproduction Package
 
-#### Dependencies
+### Dependencies
 On your machine, you'll need the following requirements:
 - Docker
-- The uncompressed assets folder, further referred to as `/path/to/assets/` (available on Zenodo, [link](https://zenodo.org/record/6504907)).
+- Download the `assets.zip` folder from Zenodo, [link](https://zenodo.org/record/6504907) and uncompress it. 
+  For the remainder of this README, we will refer with `/path/to/assets/` as the path to your assets folder.
   *Note:* Due to the large size of our study, this achive is large: 
-  Uncompressing it will take a long time and 8.3 GB of disk space.
+  Uncompressing it will take a while, and requires 8.3 GB of disk space. On windows, uncompressing is much faster when using [7zip](https://www.7-zip.org/download.html).
+ 
 
-#### Step 1: Running the container
+### Step 1: Running the container
 Start the container with the following command (replacing `/path/to/assets/` with the path to the assets folder):
 > docker run -it --rm -v /path/to/assets/:/assets ghcr.io/testingautomated-usi/simple-tip:latest
 
@@ -26,7 +28,10 @@ Note: If running on linux with an nvidia-gpu, optionally install the [nvidia-doc
 
 You should now see a Tensorflow welcome message.
 
-#### Step 2: Running the reproduction package CLI
+*Verify* that you mounted the `assets` volume successfully, by running `ls /assets`. You should see five folders (active_learning,  models,  priorities,  results,  times)
+
+
+### Step 2: Running the reproduction package CLI
 
 You can reproduce the results of the paper by using our provided command line interface as follows:
 
