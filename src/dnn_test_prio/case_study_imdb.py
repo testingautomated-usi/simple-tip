@@ -11,6 +11,7 @@ import uncertainty_wizard
 from datasets import load_dataset
 from src.core.text_corruptor import TextCorruptor
 from src.dnn_test_prio import (
+    activation_persistor,
     eval_active_learning,
     eval_prioritization,
     memory_leak_avoider,
@@ -254,6 +255,19 @@ def _imdb_prio_evaluator(model_id: int, model: tf.keras.Model) -> None:
     )
 
 
+def _imdb_activation_persistor(model_id: int, model: tf.keras.Model) -> None:
+    logging.basicConfig(level=logging.INFO)
+    train, nom, ood = _load_datasets()
+    return activation_persistor.persist(
+        model=model,
+        case_study="imdb",
+        model_id=model_id,
+        train_set=train,
+        test_nominal=nom,
+        test_corrupted=ood,
+    )
+
+
 def _load_datasets():
     x_train = np.load(os.path.join(DS_CACHE_FOLDER, "x_train.npy"))
     y_train = np.load(os.path.join(DS_CACHE_FOLDER, "y_train.npy"))
@@ -343,6 +357,10 @@ class ImdbCaseStudy(CaseStudy):
     @staticmethod
     def _active_learning_evaluator() -> Callable[[int, tf.keras.Model], None]:
         return _imdb_active_learning_evaluator
+
+    @staticmethod
+    def _activation_persistor() -> Callable[[int, tf.keras.Model], None]:
+        return _imdb_activation_persistor
 
 
 if __name__ == "__main__":
