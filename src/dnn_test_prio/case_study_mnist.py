@@ -11,7 +11,11 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 import uncertainty_wizard
 
-from src.dnn_test_prio import eval_active_learning, eval_prioritization
+from src.dnn_test_prio import (
+    activation_persistor,
+    eval_active_learning,
+    eval_prioritization,
+)
 from src.dnn_test_prio.case_study import CaseStudy
 
 MNIST = "mnist"
@@ -100,6 +104,19 @@ def _mnist_active_learning_evaluator(model_id: int, model: tf.keras.Model) -> No
         observed_share=0.5,
         num_selected=1000,
         num_classes=10,
+    )
+
+
+def _mnist_activation_persistor(model_id: int, model: tf.keras.Model) -> None:
+    logging.basicConfig(level=logging.INFO)
+    train, nom, ood = _load_datasets()
+    return activation_persistor.persist(
+        model=model,
+        case_study="mnist",
+        model_id=model_id,
+        train_set=train,
+        test_nominal=nom,
+        test_corrupted=ood,
     )
 
 
@@ -206,11 +223,16 @@ class MnistCaseStudy(CaseStudy):
     def _active_learning_evaluator() -> Callable[[int, tf.keras.Model], None]:
         return _mnist_active_learning_evaluator
 
+    @staticmethod
+    def _activation_persistor() -> Callable[[int, tf.keras.Model], None]:
+        return _mnist_activation_persistor
+
 
 if __name__ == "__main__":
     cs = MnistCaseStudy()
 
-    models = 10
+    models = 100
     cs.train(list(range(models)), num_processes=0)
     cs.run_prio_eval(list(range(models)), num_processes=0)
     cs.run_active_learning_eval(list(range(models)), num_processes=0)
+    cs.collect_activations(list(range(models)), num_processes=0)

@@ -8,7 +8,11 @@ import numpy as np
 import tensorflow as tf
 import uncertainty_wizard
 
-from src.dnn_test_prio import eval_active_learning, eval_prioritization
+from src.dnn_test_prio import (
+    activation_persistor,
+    eval_active_learning,
+    eval_prioritization,
+)
 from src.dnn_test_prio.case_study import CaseStudy
 
 CASE_STUDY = "fmnist"
@@ -114,6 +118,19 @@ def _fashion_mnist_prio_evaluator(model_id: int, model: tf.keras.Model) -> None:
     )
 
 
+def _fmnist_activation_persistor(model_id: int, model: tf.keras.Model) -> None:
+    logging.basicConfig(level=logging.INFO)
+    train, nom, ood = _load_datasets()
+    return activation_persistor.persist(
+        model=model,
+        case_study="fmnist",
+        model_id=model_id,
+        train_set=train,
+        test_nominal=nom,
+        test_corrupted=ood,
+    )
+
+
 def _load_datasets():
     # prepare data
     (x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()
@@ -158,6 +175,10 @@ class FashionMnistCaseStudy(CaseStudy):
     @staticmethod
     def _active_learning_evaluator() -> Callable[[int, tf.keras.Model], None]:
         return _fashion_mnist_active_learning_evaluator
+
+    @staticmethod
+    def _activation_persistor() -> Callable[[int, tf.keras.Model], None]:
+        return _fmnist_activation_persistor
 
 
 if __name__ == "__main__":

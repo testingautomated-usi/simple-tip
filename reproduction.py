@@ -16,6 +16,7 @@ class ReproductionType(str, Enum):
     TEST_PRIO = "test_prio"
     ACTIVE_LEARNING = "active_learning"
     EVAL = "evaluation"
+    ACTIVATION_COLLECTION = "at_collection"
 
 
 class CaseStudyType(str, Enum):
@@ -112,6 +113,14 @@ def _cs_runner_for_case_study(case_study: CaseStudyType):
 
 def _setup_non_eval(r_type: ReproductionType):
     # Make sure user really wants to do this
+    if r_type == ReproductionType.ACTIVATION_COLLECTION:
+        typer.echo(
+            f"Note that activation collection has only been added after paper"
+            f"publication (due to a 3rd party request). "
+            f"This step has thus not been used to collect our results, "
+            f"but may help you when doing your own activation-based work."
+        )
+
     confirmed = typer.confirm(
         f"Are you sure you want to run the {r_type} steps of the experiments? "
         f"These typically take a long time to run, "
@@ -123,7 +132,7 @@ def _setup_non_eval(r_type: ReproductionType):
         raise typer.Abort()
 
     case_study: CaseStudyType = typer.prompt(
-        "Please enter the case study you want to reproduce",
+        "Please enter the case study you want to run",
         type=click.Choice([c.value for c in CaseStudyType], case_sensitive=False),
     )
     run: Union[int, List[int]] = typer.prompt(
@@ -161,6 +170,10 @@ def _setup_non_eval(r_type: ReproductionType):
     elif r_type == ReproductionType.ACTIVE_LEARNING:
         cs_runner.run_active_learning_eval(
             run, num_processes=1, context=SingleUseContext
+        )
+    elif r_type == ReproductionType.ACTIVATION_COLLECTION:
+        cs_runner.collect_activations(
+            model_ids=run, num_processes=1, context=SingleUseContext
         )
     else:
         typer.echo(f"Unknown reproduction type: {r_type}", err=True)

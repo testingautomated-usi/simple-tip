@@ -75,6 +75,15 @@ To assess the reusability of our code, far beyond just reproducibility,
 we refer to the next section where we show dedicated, general-purpose artifacts
 extracted from this reproduction package.
 
+**AT Generation** Due to a 3rd party request after paper publication, 
+we have added a new command `python reproduction.py --phase at_collection` to the CLI.
+It allows to persist the activation traces for our models (all layers, including input and output)
+to the file system. As above, the interactive CLI allows to narrow down the selection of datasets/models.
+Attention: The ATs for all models and all dataset will add up to multiple terrabytes of data.
+Running the AT generation command has no impact on the other experiments. 
+Still, if anyone wants to reproduce using the exact version of the code we used, they should stick 
+to the docker image and code for version `v0.1.0`.
+
 ## :rocket:  :rocket:  :rocket: Extracted General-Purpose Artifacts :rocket: :rocket: :rocket:
 Running the above described reproduction package allows to verify the results 
 shown in the paper.

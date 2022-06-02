@@ -8,7 +8,11 @@ import numpy as np
 import tensorflow as tf
 import uncertainty_wizard
 
-from src.dnn_test_prio import eval_active_learning, eval_prioritization
+from src.dnn_test_prio import (
+    activation_persistor,
+    eval_active_learning,
+    eval_prioritization,
+)
 from src.dnn_test_prio.case_study import OUTPUT_FOLDER, CaseStudy
 
 CASE_STUDY = "cifar10"
@@ -119,6 +123,19 @@ def _cifar10_prio_evaluator(model_id: int, model: tf.keras.Model) -> None:
     )
 
 
+def _cifar_activation_persistor(model_id: int, model: tf.keras.Model) -> None:
+    logging.basicConfig(level=logging.INFO)
+    train, nom, ood = _load_datasets()
+    return activation_persistor.persist(
+        model=model,
+        case_study="cifar10",
+        model_id=model_id,
+        train_set=train,
+        test_nominal=nom,
+        test_corrupted=ood,
+    )
+
+
 def _load_datasets():
     # prepare data
     (x_train, y_train), (x_test, y_test) = tf.keras.datasets.cifar10.load_data()
@@ -203,6 +220,10 @@ class Cifar10CaseStudy(CaseStudy):
     @staticmethod
     def _active_learning_evaluator() -> Callable[[int, tf.keras.Model], None]:
         return _mnist_active_learning_evaluator
+
+    @staticmethod
+    def _activation_persistor() -> Callable[[int, tf.keras.Model], None]:
+        return _cifar_activation_persistor
 
 
 if __name__ == "__main__":
