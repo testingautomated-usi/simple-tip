@@ -1,7 +1,7 @@
 # Reproduction Package of ISSTA 2022 paper "Simple Techniques Work Surprisingly Well..."
 
 This is the reproduction package of the paper **Simple Techniques Work Surprisingly Well for Neural Network
-Test Prioritization and Active Learning** by M.Weiss and P.Tonella, published at ISSTA 2022.
+Test Prioritization and Active Learning** by M.Weiss and P.Tonella, published at ISSTA 2022. [preprint](https://arxiv.org/pdf/2205.00664.pdf)
 
 ⚠️ This repository is indended for reproduction of our results; dependencies are not updated on purpose. The repository may thus contain vulnerabilities. We recommend you run it in a safe environment ⚠️
 
